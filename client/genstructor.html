@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genshin Constructor!</title>
+    <link rel="Stylesheet" href="/css/base-styles.css">
+    
+</head>
+
+<body>
+    <h1>The Genshin Constructor!</h1>
+    <h4>This is an API to help people find or create builds for Genshin Impact Characters!</h6>
+        <h4>We have some presets availible</h6>
+
+            <select name="charaList" id="Presets" onchange="update()">
+                <option value="Xiao">Xiao</option>
+                <option value="Diluc">Diluc</option>
+                <option value="Keqing">Keqing</option>
+                <option value="Jean">Jean</option>
+            </select>
+
+            <button onclick="getCharacter()" type="button">Search</button>
+            
+            <ul id="characterData">Character:
+                <li id="charaName"></li>
+                <li id="charaVision"></li>
+                <li id="charaNation"></li>
+                <li id="charaWeapon"></li>
+            </ul>
+
+            <select name="artiList" id="Presets2" onchange="update()">
+                <option value="B.I.S">B.I.S</option>
+                <option value="F2P">F2P</option>
+                <option value="Meme">Meme</option>
+            </select>
+
+            <button onclick="getArtifacts()" type="button">Search</button>
+
+            <ul id="artifactSet"> Artfacts:
+                <li id="artiCrown"></li>
+                <li id="artiSands"></li>
+                <li id="artiCup"></li>
+                <li id="artiFlower"></li>
+                <li id="artiFeather"></li>
+            </ul>
+
+            <p id="Information">
+                
+            </p>
+</body>
+<script src="/src/builder.js"></script>
+</html>
