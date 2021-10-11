@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default-styles.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/png" href="primogem.png">
+    <title>Genshin Character Index</title>
+    <script>
+        const handleMultiResponse = (e) => {
+            const characters = JSON.parse(e.target.response);
+            let s = "<hr>";
+            let c = 1
+            for (let c of characters) {
+                s += `
+            <p><b> Character: ${c.name}</b></p>
+            <p><b> Weapon: ${c.weapon}</b></p>
+            <p><b> Vision: ${c.vision}</b></p>
+            <hr>
+          `;
+            }
+            charContainer.innerHTML = s;
+        };
+
+        const downloadCharacters = (e) => {
+            console.log(`An element of id=${e.target.id} was clicked!`);
+            const multiURL = "/characters?max=4";
+            const xhr = new XMLHttpRequest();
+            xhr.onload = handleMultiResponse;
+            xhr.open("GET", multiURL);
+            xhr.setRequestHeader('Accept', "application/javascript");
+            xhr.send();
+        };
+
+        const init = () => {
+            // An Event *Handler*
+            document.querySelector("#rndCharacters").addEventListener("click", downloadCharacters);
+            // An Event *Listener*
+            document.querySelector("#character-form").onsubmit = e => {
+                console.log('Character Has Been Added!!!')
+                e.preventDefault();
+                const form = e.target;
+                const action = form.action;
+                const method = form.method;
+                const name = form["name"].value;
+                const weapon = form["weapon"].value;
+                const vision = form["vision"].value;
+                const formData = `name=${name}&weapon=${weapon}&vision=${vision}`;
+
+                const xhr = new XMLHttpRequest();
+                xhr.onload = e => {
+                    charContainer.innerHTML = JSON.parse(e.target.responseText).message;
+                };
+                xhr.open(method, action);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send(formData);
+
+                return false;
+            };
+
+
+
+            // **Actually, event handlers and listeners are NOT exactly the same in all use cases - what ARE the differences?**
+        }
+
+        window.onload = init;
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Genshin Character Index</h1>
+    </header>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/admin" target="_blank">Admin</a></li>
+        <li><a href="/randChar" target="_blank">Random</a></li>
+        <li><a href="/multi" target="_blank">Team Set</a></li>
+        <li><a href="/getCharacter" target="_blank">List</a></li>
+        <li><a href="/characters?max=6" target="_blank">Random 6</a></li>
+        <li><a href="/errorPage" target="_blank">Error Page</a></li>
+    </ul>
+    <div id="charContainer"> </div>
+    <p><button id="rndCharacters">Random Character Set!</button></p>
+    <img src="primogem.png" alt="Primogem" style="width:48px;height:48px;">
+</body>
+
+</html>

@@ -1,1 +1,71 @@
-*{font-family: sans-serif;}
+body{
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    background-color: #818589;
+}
+
+@media (max-width: 800px) {
+    .flex-item-right, .flex-item-left, .flex-container {
+      flex: 100%;
+    }
+}
+
+
+#flexContainer {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 30px;
+}
+
+#charContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 20px;
+    border-radius: 20px;
+    border: 3px solid black;
+    margin-left: 25%;
+    margin-right: 25%;
+    
+  
+}
+
+.flex-item-left {
+    flex: 50%;
+}
+  
+.flex-item-right {
+    flex: 50%;
+}
+
+
+/* I got the idea for a nav bar at the top from w3schools. This is the link https://www.w3schools.com/css/css_navbar_horizontal.asp */
+
+li{
+
+    float: left;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    
+    text-decoration: none;
+} 
+
+li a:hover {
+    background-color: #111;
+}
+
