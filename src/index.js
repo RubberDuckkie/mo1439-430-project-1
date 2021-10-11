@@ -10,10 +10,14 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const urlStruct = {
   '/character': responseHandler.getRandomCharacterResponse,
+  '/characters': responseHandler.getRandomCharactersResponse,
+  '/randChar': htmlHandler.getRandCharResponse,
+  '/multi': htmlHandler.getRandCharactersResponse,
+  '/admin': htmlHandler.adminResponse,
+  '/getCharacter': responseHandler.getCharacterList,
   '/build-character': responseHandler.addCharacter,
-  '/client/default-styles.css': htmlHandler.getCSSResponse,
-  '/client/mainPage.html': htmlHandler.getHTMLPageResponse,
-  '/': htmlHandler.get404Response,
+  '/default-styles.css': htmlHandler.getCSSResponse,
+  '/': htmlHandler.getHTMLPageResponse,
   notFound: htmlHandler.get404Response,
 };
 
@@ -44,8 +48,8 @@ const handlePost = (request, response, parsedUrl) => {
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
   const { pathname } = parsedUrl;
+  const params = query.parse(parsedUrl.query);
   const httpMethod = request.method;
-  console.log('pathname=', pathname);
 
   if (httpMethod === 'POST') {
     handlePost(request, response, parsedUrl);
@@ -55,9 +59,9 @@ const onRequest = (request, response) => {
   let acceptedTypes = request.headers.accept && request.headers.accept.split(',');
   acceptedTypes = acceptedTypes || [];
   if (urlStruct[pathname]) {
-    urlStruct[pathname](request, response, acceptedTypes, httpMethod);
-  } else if (undefined) {
-    urlStruct[httpMethod].notFound(request, response);
+    urlStruct[pathname](request, response, acceptedTypes, params, httpMethod);
+  } else {
+    urlStruct.notFound(request, response);
   }
 };
 
